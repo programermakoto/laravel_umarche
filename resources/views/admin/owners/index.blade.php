@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            オーナー管理
+            オーナー一覧
         </h2>
     </x-slot>
     <div class="py-12">
@@ -21,6 +21,9 @@
                     @endforeach --}}
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
+                            <div class="flex justify-end mb-4">
+                               <button onclick="location.href='{{route('admin.owners.create')}}'" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規作成</button>
+                            </div>
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
