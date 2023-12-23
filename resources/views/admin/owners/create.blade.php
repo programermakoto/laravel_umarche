@@ -37,7 +37,7 @@
                               <div class="p-2 w-1/2 mx-auto">
                                 <div class="relative">
                                   <label for="password_confirmation" class="leading-7 text-sm text-gray-600">パスワード確認</label>
-                                  <input type="password_confirmation" id="password_confirmation" name="password_confirmation" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                  <input type="password_confirmation" id="password_confirmationl" name="password_confirmation" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
                               </div>
 
