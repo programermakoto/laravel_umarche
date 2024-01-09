@@ -30,7 +30,7 @@ Route::prefix("shops")->middleware("auth:owners")->group(function(){
 
  Route::get("edit/{shop}",[shopController::class,"edit"])->name("shops.edit");
 
- Route::post("updatshopp}",[shopController::class,"update"])->name("shops.update");
+ Route::post("update.shop}",[shopController::class,"update"])->name("shops.update");
 
 });
 
