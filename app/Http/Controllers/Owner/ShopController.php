@@ -9,7 +9,6 @@ use App\Models\shop;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
 use App\Http\Requests\UploadImageRequest;
-
 use App\Services\ImageService;
 class ShopController extends Controller
 {
@@ -43,6 +42,7 @@ class ShopController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $shops = shop::where("owner_id", Auth::id())->get();
@@ -54,12 +54,11 @@ class ShopController extends Controller
         $shop = shop::findOrFail($id);
         return view("owner.shops.edit", compact("shop"));
     }
-    public function update(UploadImageRequest $request)
+    public function update(UploadImageRequest $request ,$id)
     {
-
         $imageFile = $request->image; //imgを受け取り変数へ
         if (!is_null($imageFile) && $imageFile->isValid()) {
-            $fileNameToStore = ImageService::upload($imageFile,"shops");
+            $fileNameToStore = ImageService::upload($imageFile, "shops");
 
             // Storage::putFile("public/shops",$imageFile);
             // $fileName = uniqid(rand() . "_"); //ランダムなファイルを作成
@@ -74,6 +73,25 @@ class ShopController extends Controller
         }
         //nullではないかアップロードできてるか確認
         //保存先と保存したいファイル
+        $shop = Shop::findOrFail($id);
+
+        $shop->name = $request->name;
+
+        $shop->information = $request->information;
+
+        $shop->is_selling = $request->is_selling;
+
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+
+            $shop->filename = $fileNameToStore;
+        }
+
+        $shop->save();
         return redirect()->route("owner.shops.index");
     }
 }
+
+
+
+
+
