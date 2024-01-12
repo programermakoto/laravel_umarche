@@ -870,9 +870,13 @@ select {
 .w-8 {
   width: 2rem;
 }
+.w-10{
+    width: 20rem;
+}
 .w-12 {
     width: 40rem;
   }
+
 
 .w-auto {
   width: auto;

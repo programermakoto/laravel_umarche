@@ -28,7 +28,7 @@
 
                                     <div class="text-xl"> {{ $shop->name }} </div>
 
-                                    <x-shop-thumbnail filename="$shop->filename" />
+                                    <x-shop-thumbnail :filename="$shop->filename" />
 
                                 </div>
 

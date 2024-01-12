@@ -30,7 +30,8 @@ Route::prefix("shops")->middleware("auth:owners")->group(function(){
 
  Route::get("edit/{shop}",[shopController::class,"edit"])->name("shops.edit");
 
- Route::post("update.shop}",[shopController::class,"update"])->name("shops.update");
+ //訂正
+ Route::post("update/{shop}}",[shopController::class,"update"])->name("shops.update");
 
 });
 
@@ -63,7 +64,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware('auth:owner')->group(function () {
+Route::middleware('auth:owners')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
