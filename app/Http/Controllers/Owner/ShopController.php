@@ -62,7 +62,7 @@ class ShopController extends Controller
 
             'name' => ['required', 'string', 'max:50'],
 
-            'information' => ['required', 'string', 'email', 'max:1000'],
+            'information' => ['required', 'string','max:1000'],
 
             'is_selling' => ['required'],
 
