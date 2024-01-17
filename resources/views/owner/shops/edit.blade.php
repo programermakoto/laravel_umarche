@@ -48,7 +48,7 @@
 
                                     <div class="w-32">
 
-                                        <x-shop-thumbnail :filename="$shop->filename" />
+                                        <x-shop-thumbnail :filename="$shop->filename" type="shops"/>
 
                                     </div>
 

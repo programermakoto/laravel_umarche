@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
-use App\Models\shop;
+use App\Http\Requests\UploadImageRequest;
+
 
 class ImageController extends Controller
 {
@@ -18,11 +19,11 @@ class ImageController extends Controller
 
         $this->middleware(function ($request, $next) {
 
-            $id = $request->route()->parameter("image"); //shopのidを取得
+            $id = $request->route()->parameter("image"); //imageのidを取得
 
-            if (!is_null($id)) { //shopのidが存在するなら↓
+            if (!is_null($id)) { //imageのidが存在するなら↓
 
-                $imagesOwnerId = shop::findOrFail($id)->owner->id;
+                $imagesOwnerId = Image::findOrFail($id)->owner->id;
 
                 $imageId = (int)$imagesOwnerId; //文字列=>数値に
 
@@ -52,7 +53,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        return view("owner.images.create");
     }
 
     /**
@@ -61,9 +62,9 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UploadImageRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**

@@ -24,7 +24,7 @@ if($type === "products"){
     @if (empty($filename))
         <img src="{{ asset('images/noimage.png') }}" class="w-12">
     @else
-        <img src="{{ asset('$path' . $filename) }}">
+        <img src="{{ asset($path . $filename) }}">
     @endif
 
 </div>

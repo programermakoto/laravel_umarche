@@ -24,7 +24,7 @@
 
    <button onclick="location.href='{{ route('owner.images.create') }}'"
 
-   class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規作成</button>
+   class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</button>
 
    </div>
 
@@ -38,7 +38,7 @@
 
    <div class="text-xl"> {{ $image->title }} </div>
 
-   <x-thumbnail filename="$shop->filename" type="products" />
+   <x-thumbnail :filename="$shop->filename" type="products" />
 
    </div>
 
@@ -47,7 +47,7 @@
    </div>
 
    @endforeach
-   {{$owners->links()}}
+   {{$images->links()}}
    </div>
 
    </div>
