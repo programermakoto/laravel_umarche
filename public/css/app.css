@@ -876,8 +876,9 @@ select {
 .w-12 {
     width: 40rem;
   }
-
-
+.flex-wrap{
+    flex-wrap: wrap;
+}
 .w-auto {
   width: auto;
 }

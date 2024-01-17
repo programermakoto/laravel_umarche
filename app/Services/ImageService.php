@@ -7,19 +7,28 @@ use InterventionImage;
 
 class ImageService
 {
-public static function upload($imageFile,$folderName){
+    public static function upload($imageFile, $folderName)
+    {
+        //ここで配列の時の処理塗装でない時の処理を書く
 
- $fileName = uniqid(rand() . "_"); //ランダムなファイルを作成
+        if (is_array($imageFile)) {
 
- $extension = $imageFile->extension(); //extensionで受け取った画像の拡張子をつけて代入
+            $file = $imageFile["image"];
+        } else {
 
- $fileNameToStore = $fileName . "." . $extension;
+            $file = $imageFile;
+        }
 
- $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode(); //resizeでサイズ設定
+        $fileName = uniqid(rand() . "_"); //ランダムなファイルを作成
 
- Storage::put('public/' . $folderName .'/' . $fileNameToStore,$resizedImage);//publicの中に入れる
+        $extension = $file->extension(); //extensionで受け取った画像の拡張子をつけて代入
 
- return $fileNameToStore;
- }
+        $fileNameToStore = $fileName . "." . $extension;
 
+        $resizedImage = InterventionImage::make($file)->resize(1920, 1080)->encode(); //resizeでサイズ設定
+
+        Storage::put('public/' . $folderName . '/' . $fileNameToStore, $resizedImage); //publicの中に入れる
+
+        return $fileNameToStore;
+    }
 }
