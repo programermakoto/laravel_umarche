@@ -8,7 +8,7 @@ use App\Models\Owner;
 class shop extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'owner_id',
         'name',
@@ -20,3 +20,5 @@ class shop extends Model
         return $this->belongsTo(Owner::class);
     }
 }
+
+

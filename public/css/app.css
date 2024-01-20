@@ -801,6 +801,9 @@ select {
 .mt-8 {
   margin-top: 2rem;
 }
+.mt-32 {
+    margin-top: 6rem;
+  }
 .block {
   display: block;
 }
@@ -1110,6 +1113,10 @@ select {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+.px-12 {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;

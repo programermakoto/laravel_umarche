@@ -33,3 +33,9 @@ class shopseeder extends Seeder
         ]);
     }
 }
+
+
+
+
+
+
