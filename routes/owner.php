@@ -9,7 +9,7 @@ use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\ShopController;
-
+use App\Http\Controllers\Owner\ProductController;
 use App\Http\Controllers\Owner\ImageController; //ImageControllerの読み込みを次にする
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Route::prefix("shops")->middleware("auth:owners")->group(function(){
  Route::post("update/{shop}}",[shopController::class,"update"])->name("shops.update");
 });
 Route::resource('images',ImageController::class)->middleware("auth:owners")->except(["show"]); //ownerからのみアクセス可能かつ
-
+Route::resource('products',ProductController::class)->middleware("auth:owners")->except(["show"]); //ownerからのみアクセス可能かつ
 Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
