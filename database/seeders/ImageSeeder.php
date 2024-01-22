@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+
 class ImageSeeder extends Seeder
 {
     /**
@@ -17,62 +18,68 @@ class ImageSeeder extends Seeder
 
             [
 
-           "owner_id"=>1,
+                "owner_id" => 1,
 
-           "filename" => "sample1.jpg",
+                "filename" => "sample1.jpg",
 
-           "title"=>null
-
-            ],
-
-            [
-
-           "owner_id"=>1,
-
-           "filename" => "sample2.jpg",
-
-           "title"=>null
+                "title" => null
 
             ],
 
             [
 
-           "owner_id"=>1,
+                "owner_id" => 1,
 
-           "filename" => "sample3.jpg",
+                "filename" => "sample2.jpg",
 
-           "title"=>null
-
-            ],
-
-            [
-
-           "owner_id"=>1,
-
-           "filename" => "sample4.jpg",
-
-           "title"=>null
+                "title" => null
 
             ],
 
             [
 
-           "owner_id"=>1,
+                "owner_id" => 1,
 
-           "filename" => "sample5.jpg",
+                "filename" => "sample3.jpg",
 
-           "title"=>null
+                "title" => null
 
             ],
 
             [
 
-           "owner_id"=>1,
+                "owner_id" => 1,
 
-           "filename" => "sample6.jpg",
+                "filename" => "sample4.jpg",
 
-           "title"=>null
+                "title" => null
 
-            ]]);
+            ],
+
+            [
+
+                "owner_id" => 1,
+
+                "filename" => "sample5.jpg",
+
+                "title" => null
+
+            ],
+
+            [
+
+                "owner_id" => 1,
+
+                "filename" => "sample6.jpg",
+
+                "title" => null
+
+            ]
+        ]);
     }
 }
+
+
+
+
+
