@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UploadImageRequest;
+use App\Models\Product;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
 
