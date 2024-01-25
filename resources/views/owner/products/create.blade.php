@@ -32,6 +32,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <x-select-image :images="$images" name="image1" />
                             <div class="p-2 w-full flex justify-around mt-4">
                                 <button type="button" onclick="location.href='{{ route('owner.products.index') }}'"
                                     class="mx-auto text-black bg-gray-500 border-1 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
@@ -44,4 +45,36 @@
             </div>
         </div>
     </div>
+    <script>
+
+        "use strict"
+
+        const images = document.querySelectorAll(".image") //全てのimageタグを取得
+
+        images.forEach(image => { // それぞれのimageタグに対して
+
+        image.addEventListener('click', function(e){ // クリックしたら
+
+        const imageName = e.target.dataset.id.substr(0, 6) //data-idの6文字
+
+        const imageld = e.target.dataset.id.replace(imageName + '_') // 6文字カット
+
+        const imageFile = e.target.dataset.file
+
+        const imagePath = e.target.dataset.path
+
+        const modal = e.target.dataset.modal
+
+        // サムネイルとinput type=hiddenのvalueを設定
+
+        document.getElementById(imageName + '_thumbnail').src = imagePath + '/' + imageFile
+
+        document.getElementById(imageName + '_hidden').value = imageId
+
+        MicroModal.close(modal);//モーダルを閉じる
+
+        },)
+
+        })
+    </script>
 </x-app-layout>
