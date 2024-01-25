@@ -48,7 +48,7 @@
 
                                     <div class="w-32">
 
-                                        <x-thumbnail :filename="$shop->filename" type="shops"/>
+                                        <x-thumbnail :filename="$shop->filename" type="shops" />
 
                                     </div>
 
@@ -68,13 +68,15 @@
 
                                     <div class="relative flex justify-around">
 
-                                   <div><input type="radio" name="is_selling" value="1" class="mr-2" @if ($shop->is_selling === 1) {checked} @endif>販売中</div>
+                                        <div><input type="radio" name="is_selling" value="1" class="mr-2"
+                                                @if ($shop->is_selling === 1) {checked} @endif>販売中</div>
 
-                                   <div><input type="radio" name="is_selling" value="0" class="mr-2" @if ($shop->is_selling === 0) {checked} @endif>停止中</div>
+                                        <div><input type="radio" name="is_selling" value="0" class="mr-2"
+                                                @if ($shop->is_selling === 0) {checked} @endif>停止中</div>
 
-                                   </div>
+                                    </div>
 
-                                   </div>
+                                </div>
                                 <div class="p-2 w-full flex justify-around mt-4">
                                     <button type="button" onclick="location.href='{{ route('owner.shops.index') }}'"
                                         class="mx-auto text-black bg-gray-500 border-1 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">戻る</button>
@@ -89,3 +91,11 @@
         </div>
     </div>
 </x-app-layout>
+
+
+
+
+
+
+
+
