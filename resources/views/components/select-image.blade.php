@@ -3,31 +3,31 @@
     if ($name === 'image1') {
         //$name==="image1"でnameがimage1の時
 
-        $modal = 'modal-1'; //modal-1とは下のclass="modal micromodal-slide"のidのことです
+        $modal = 'modal-1'; //modal-1とは下のclass="modal micromodal-slide"のidのこと
     }
 
     if ($name === 'image2') {
         //$name==="image1"でnameがimage2の時
 
-        $modal = 'modal-2'; //modal-2とはidのことです
+        $modal = 'modal-2'; //modal-2とはidのこと
     }
 
     if ($name === 'image3') {
         //$name==="image1"でnameがimage3の時
 
-        $modal = 'modal-3'; //modal-3とはidのことです
+        $modal = 'modal-3'; //modal-3とはidのこと
     }
 
     if ($name === 'image4') {
         //$name==="image1"でnameがimage4の時
 
-        $modal = 'modal-4'; //modal-4とはidのことです
+        $modal = 'modal-4'; //modal-4とはidのこと
     }
 
     if ($name === 'image5') {
         //$name==="image1"でnameがimage4の時
 
-        $modal = 'modal-5'; //modal-5とはidのことです
+        $modal = 'modal-5'; //modal-5とはidのこと
     }
 
     //id="modal-1"をid="{{ $modal }}"にすればifで作った変数名で置き換えれる
@@ -43,7 +43,7 @@
                 <button type="button" class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
             <main class="modal__content" id="{{ $modal }}-content">
-                
+
                 <div class="flex flex-wrap">
 
                     @foreach ($images as $image)
@@ -56,13 +56,12 @@
 
                    data-file="{{ $image->filename }}"
 
-                   data-path="{{ asset('strage/products/')}}"
+                   data-path="{{ asset('storage/products/')}}"
 
                    data-modal="{{$modal}}"
 
                    src="{{ asset('storage/products/' . $image->filename)}}">
-                   {{-- //src="{{ asset('strage/products/' . $image->filename)}}">これ編集！！
-                    --}}
+
 
                    {{-- <x-thumbnail :filename="$image->filename" type="products" /> --}}
 
@@ -91,12 +90,10 @@
 
    <div class="w-1/4">
 
-   <img id="{{ $name }}_thumbnail" src="">{{--id="{{ $name }}がimage1や2が入ってくる場所です--}}
+   <img id="{{ $name }}_thumbnail" src="">{{--id="{{ $name }}がimage1や2が入ってくる場所--}}
 
    </div>
 
 </div>
 
    <input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="">
-
-   {{--これをJSで！--}}
