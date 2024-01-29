@@ -95,5 +95,4 @@
    </div>
 
 </div>
-
    <input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="">

@@ -63,7 +63,7 @@
 
         const imageName = e.target.dataset.id.substr(0, 6) //data-idの6文字
 
-        const imageld = e.target.dataset.id.replace(imageName + '_', '') // 6文字カット
+        const imageId = e.target.dataset.id.replace(imageName + '_', '') // 6文字カット
 
         const imageFile = e.target.dataset.file
 
