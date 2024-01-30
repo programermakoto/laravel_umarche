@@ -47,9 +47,9 @@
     <div class="border rounded-md p-2 md:p-4">
 
     {{-- 変更前　<x-thumbnail :filename="$image->filename" type="products" /> --}}
-
-    <x-thumbnail :filename="$product->imageFirst->filename" type="products" />
-
+{{-- 追加 --}}
+    <x-thumbnail filename="{{$product->imageFirst->filename ?? ''}}" type="products" />
+{{-- 追加 --}}
     {{-- 変更前　<div class="text-xl"> {{ $image->title }} </div> --}}
 
     {{--最初はないのでコメントに <div class="text-xl"> {{ $product->name }} </div> --}}
