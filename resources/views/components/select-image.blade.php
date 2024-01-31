@@ -1,5 +1,5 @@
 @php
-//imageで1~5まで入ってくるとしてここでは書く！
+    //imageで1~5まで入ってくるとしてここでは書く！
     if ($name === 'image1') {
         //$name==="image1"でnameがimage1の時
 
@@ -31,7 +31,9 @@
     }
 
     //id="modal-1"をid="{{ $modal }}"にすればifで作った変数名で置き換えれる
+    $cImage = $currentImage ?? '';
 
+    $cId = $curentId ?? '';
 @endphp
 <div class="modal micromodal-slide" id="{{ $modal }}" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -47,33 +49,26 @@
                 <div class="flex flex-wrap">
 
                     @foreach ($images as $image)
+                        <div class="w-1/4 p-2 md:p-2">
 
-                   <div class="w-1/4 p-2 md:p-2">
+                            <div class="border rounded-md p-2 md:p-4">
 
-                   <div class="border rounded-md p-2 md:p-4">
-
-                   <img class="image" data-id="{{ $name }}_{{ $image->id }}"
-
-                   data-file="{{ $image->filename }}"
-
-                   data-path="{{ asset('storage/products/')}}"
-
-                   data-modal="{{$modal}}"
-
-                   src="{{ asset('storage/products/' . $image->filename)}}">
+                                <img class="image" data-id="{{ $name }}_{{ $image->id }}"
+                                    data-file="{{ $image->filename }}" data-path="{{ asset('storage/products/') }}"
+                                    data-modal="{{ $modal }}"
+                                    src="{{ asset('storage/products/' . $image->filename) }}">
 
 
-                   {{-- <x-thumbnail :filename="$image->filename" type="products" /> --}}
+                                {{-- <x-thumbnail :filename="$image->filename" type="products" /> --}}
 
-                   <div class="text-gray-700"> {{ $image->title }} </div>
+                                <div class="text-gray-700"> {{ $image->title }} </div>
 
-                   </div>
+                            </div>
 
-                   </div>
+                        </div>
+                    @endforeach
 
-                   @endforeach
-
-                   </div>
+                </div>
 
             </main>
             <footer class="modal__footer">
@@ -86,14 +81,13 @@
 </div>
 <div class="flex justify-around items-center mb-4">{{-- ボタンと画像を中央揃え --}}
 
-    <a class="py-2 px-4 bg-gray-200"
-    data-micromodal-trigger="{{ $modal }}" href='javascript:;'>ファイルを選択</a>
+    <a class="py-2 px-4 bg-gray-200" data-micromodal-trigger="{{ $modal }}" href='javascript:;'>ファイルを選択</a>
 
-   <div class="w-1/4">
+    <div class="w-1/4">
 
-   <img id="{{ $name }}_thumbnail" src="">{{--id="{{ $name }}がimage1や2が入ってくる場所--}}
+        <img id="{{ $name }}_thumbnail" @if($cImage) src="{{asset('storage/products/' . $cImage)}}" @else src="" @endif src="">{{-- id="{{ $name }}がimage1や2が入ってくる場所 --}}
 
-   </div>
+    </div>
 
 </div>
-   <input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="">
+<input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="$cId">
