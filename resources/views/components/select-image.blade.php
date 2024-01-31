@@ -31,9 +31,9 @@
     }
 
     //id="modal-1"をid="{{ $modal }}"にすればifで作った変数名で置き換えれる
-    $cImage = $currentImage ?? '';
+    $cImage = $currentImage ?? '' ;
 
-    $cId = $curentId ?? '';
+    $cId = $currentId ?? '' ;
 @endphp
 <div class="modal micromodal-slide" id="{{ $modal }}" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -85,9 +85,9 @@
 
     <div class="w-1/4">
 
-        <img id="{{ $name }}_thumbnail" @if($cImage) src="{{asset('storage/products/' . $cImage)}}" @else src="" @endif src="">{{-- id="{{ $name }}がimage1や2が入ってくる場所 --}}
+        <img id="{{ $name }}_thumbnail" @if($cImage) src="{{ asset('storage/products/' . $cImage)}}" @else src="" @endif src="">{{-- id="{{ $name }}がimage1や2が入ってくる場所 --}}
 
     </div>
 
 </div>
-<input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="$cId">
+<input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="{{ $cId }}">
