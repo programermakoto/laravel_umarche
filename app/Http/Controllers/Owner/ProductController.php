@@ -279,81 +279,78 @@ class ProductController extends Controller
             $id = $request->route()->parameter("product"); //productのidを取得
 
             return redirect()->route("owner.products.edit", ['product' => $id]) //['product'=> $id]にすることでルートパラメーターを持ったままeditに渡せる
-            ->with(["message" => "在庫数が変更されました！！再度変更お願いします", "status" => "alert"]);
-        }else{
+                ->with(["message" => "在庫数が変更されました！！再度変更お願いします", "status" => "alert"]);
+        } else {
             try {
 
                 // $product = Product::findOrFail($id)となり今回は新規ではなく元々あるものを更新するので$productという変数を入れてあげる
 
-                DB::transaction(function () use ($request,$product) {
+                DB::transaction(function () use ($request, $product) {
 
-                $product->name = $request->name;
+                    $product->name = $request->name;
 
-                $product->information = $request->information;
+                    $product->information = $request->information;
 
-                $product->price = $request->price;
+                    $product->price = $request->price;
 
-                $product->sort_order = $request->sort_order;
+                    $product->sort_order = $request->sort_order;
 
-                $product->shop_id = $request->shop_id;
+                    $product->shop_id = $request->shop_id;
 
-                $product->secondary_category_id = $request->category;
+                    $product->secondary_category_id = $request->category;
 
-                $product->image1 = $request->image1;
+                    $product->image1 = $request->image1;
 
-                $product->image2 = $request->image2;
+                    $product->image2 = $request->image2;
 
-                $product->image3 = $request->image3;
+                    $product->image3 = $request->image3;
 
-                $product->image4 = $request->image4;
+                    $product->image4 = $request->image4;
 
-                $product->is_selling= $request->is_selling;
+                    $product->is_selling = $request->is_selling;
 
-                $product->save();
+                    $product->save();
 
-               //追加の時
+                    //追加の時
 
-               if($request->type === \Constant::PRODUCT_LIST["add"] ){
+                    if ($request->type === \Constant::PRODUCT_LIST["add"]) {
 
-               $newQuantity = $request->quantity;
+                        $newQuantity = $request->quantity;
+                    }
 
-               }
+                    //削減の時* -1を入れることでマイナスの値を入れることが可能
 
-               //削減の時* -1を入れることでマイナスの値を入れることが可能
+                    if ($request->type === \Constant::PRODUCT_LIST["reduce"]) {
 
-               if($request->type === \Constant::PRODUCT_LIST["reduce"] ){
+                        $newQuantity = $request->quantity * -1;
+                    }
+                    Stock::create([
 
-                $newQuantity = $request->quantity * -1;
+                        "product_id" => $product->id,
 
-                } Stock::create([
+                        "type" => $request->type,
 
-               "product_id" => $product->id,
+                        "quantity" => $newQuantity
 
-               "type" => $request->type,
-
-               "quantity" => $newQuantity
-
-                ]);
-
+                    ]);
                 }, 2);
+            } catch (Throwable $e) {
+                Log::error($e);
 
-               } catch (Throwable $e) { Log::error($e);
+                throw $e;
+            }
 
-               throw $e;
+            // リダイレクション処理
 
-               }
+            return redirect()
 
-               // リダイレクション処理
+                ->route('owner.products.index')
 
-               return redirect()
+                ->with([
 
-               ->route('owner.products.index')
+                    "message" => "商品情報を更新しました。",
 
-               ->with([
-
-               "message" => "商品情報を更新しました。",
-
-               "status" => "info"
+                    "status" => "info"
 
                 ]);
         }
@@ -367,6 +364,18 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete(); //idで引っ掛かったものを削除
+
+        return redirect()
+
+            ->route("owner.products.index")
+
+            ->with([
+
+                "message" => "商品を削除しました",
+
+                "status" => "alert"
+
+            ]);
     }
 }
