@@ -313,7 +313,7 @@ class ProductController extends Controller
 
                //追加の時
 
-               if($request->type === '1'){
+               if($request->type === \Constant::PRODUCT_LIST["add"] ){
 
                $newQuantity = $request->quantity;
 
@@ -321,7 +321,7 @@ class ProductController extends Controller
 
                //削減の時* -1を入れることでマイナスの値を入れることが可能
 
-               if($request->type === '2'){
+               if($request->type === \Constant::PRODUCT_LIST["reduce"] ){
 
                 $newQuantity = $request->quantity * -1;
 
