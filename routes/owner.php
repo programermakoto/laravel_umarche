@@ -32,7 +32,6 @@ Route::prefix("shops")->middleware("auth:owners")->group(function(){
 
  Route::get("edit/{shop}",[shopController::class,"edit"])->name("shops.edit");
 
- //訂正
  Route::post("update/{shop}}",[shopController::class,"update"])->name("shops.update");
 });
 Route::resource('images',ImageController::class)->middleware("auth:owners")->except(["show"]); //ownerからのみアクセス可能かつ
@@ -85,4 +84,5 @@ Route::middleware('auth:owners')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+
 
