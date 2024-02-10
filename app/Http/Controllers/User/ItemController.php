@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
+    public function __construct()
+
+{//ユーザーかどうかの確認
+
+$this->middleware("auth:users");}
     public function index()
     {
         //table('t_stocks')でテーブル名を取得する
@@ -50,4 +55,11 @@ class ItemController extends Controller
         // $products = Product::all();
         return view('user.index', compact('products'));
     }
+    public function show($id){
+
+        $product = Product::findOrFail($id);
+
+        return view('user.show',compact('product'));
+
+        }
 }
