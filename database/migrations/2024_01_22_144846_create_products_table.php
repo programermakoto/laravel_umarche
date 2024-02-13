@@ -25,7 +25,6 @@ class CreateProductsTable extends Migration
 
             $table->integer("sort_order")->nullable(); //初期在庫のことで在庫がない可能性も兼ねてnullable()を書いておく。
 
-
             $table->foreignId("shop_id")
 
                 ->constrained()
@@ -76,3 +75,4 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('products');
     }
 }
+

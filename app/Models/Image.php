@@ -16,3 +16,7 @@ class Image extends Model
             return $this->belongsTo(Owner::class);
         }
 }
+
+
+
+

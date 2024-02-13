@@ -34,3 +34,5 @@ Route::get('/component-test2', [ComponentTestController::class, 'showComponent2'
 Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServiceContainer']);
 
 require __DIR__.'/auth.php';
+
+
