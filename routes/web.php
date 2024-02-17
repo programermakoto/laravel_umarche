@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestController;
 use App\Http\Controllers\User\ItemController;
+use App\Models\Product;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +36,8 @@ Route::get('/component-test2', [ComponentTestController::class, 'showComponent2'
 Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServiceContainer']);
 
 require __DIR__.'/auth.php';
+
+
+
 
 
