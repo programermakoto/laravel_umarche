@@ -8,6 +8,7 @@ use App\Models\shop;
 use App\Models\SecondaryCategory;
 use App\Models\Image;
 use App\Models\Stock;
+use\App\Models\User;
 
 class Product extends Model
 {
@@ -76,5 +77,12 @@ class Product extends Model
         'image4',
 
     ];
+    public function users(){
+
+        return $this->belongsToMany(user::class,'carts')
+
+        ->widthPivot(['id','quantity']);
+        
+        }
 }
 
