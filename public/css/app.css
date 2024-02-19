@@ -918,9 +918,6 @@ select {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
-.mb-2 {
-    margin-bottom: 0.5rem;
-  }
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -1026,15 +1023,6 @@ select {
 .w-1\/4 {
   width: 25%;
 }
-.w-2\/12 {
-    width: 16.666667%;
-  }
-.w-4\/12 {
-    width: 33.333333%;
-  }
-.w-3\/12 {
-    width: 25%;
-  }
 .w-12 {
   width: 3rem;
 }
@@ -1905,24 +1893,22 @@ select {
   .md\:items-center {
     align-items: center;
   }
+
   .md\:w-1\/2 {
     width: 50%;
-  }
-  .md\:w-1\/12 {
-    width: 8.333333%;
-  }
-  .md\:w-2\/12 {
-    width: 16.666667%;
-  }
-  .md\:w-3\/12 {
-    width: 25%;
-  }
-  .md\:w-4\/12 {
-    width: 33.333333%;
   }
 
   .md\:w-2\/3 {
     width: 66.666667%;
+  }
+  .md\:w-4\/12 {
+    width: 16.666667%;
+  }
+  .md\:w-2\/12 {
+    width: 33.333333%;
+  }
+  .md\:w-3\/12 {
+    width:25%;
   }
 
   .md\:grid-cols-2 {
@@ -1978,4 +1964,5 @@ select {
     padding-right: 2rem;
   }
 }
+
 
