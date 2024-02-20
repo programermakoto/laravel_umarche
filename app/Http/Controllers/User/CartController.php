@@ -102,8 +102,6 @@ class CartController extends Controller
 
                 return redirect()->route('user.cart.index'); //user.cart.indexに戻す
 
-
-
             } else {
 
                 // 買える時の処理
@@ -167,8 +165,6 @@ class CartController extends Controller
         $publicKey = env('STRIPE_PUBLIC_KEY'); //公開キー
 
         return view('user.checkout', compact('checkout_session', 'publicKey')); //checkout_sessionに情報が全て入って、publicKeyと渡す！
-
-        //顧客に対して表示される内容の管理
 
     }
 }
