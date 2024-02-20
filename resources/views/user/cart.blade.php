@@ -36,9 +36,7 @@
                                 <div class="md:w-2/12">
                                     <form method="post"
                                         action="{{ route('user.cart.delete', ['item' => $product->id]) }}">
-
                                         @csrf
-
                                         <button>
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -250,8 +250,7 @@ class ProductController extends Controller
             ->get();
 
         return view(
-            "owner.products.edit",
-            compact(
+            "owner.products.edit",compact(
                 "product",
                 "quantity",
                 "shops",
