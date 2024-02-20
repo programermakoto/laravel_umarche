@@ -91,7 +91,6 @@ class CartController extends Controller
 
         foreach ($products as $product) { //4foreachで全てのカートに入っている情報をとる
 
-            // ##################################################################################################
             //在庫情報の処理
             $quantity = '';
 
@@ -103,7 +102,7 @@ class CartController extends Controller
 
                 return redirect()->route('user.cart.index'); //user.cart.indexに戻す
 
-                // ##################################################################################################
+
 
             } else {
 
@@ -136,8 +135,6 @@ class CartController extends Controller
             }
         } //$lineItemsの中に商品名と商品情報と商品価格と通貨と在庫情報を入れていく
 
-        // ##################################################################################################
-
         // もし買える状態でstripeに渡す前に在庫情報を減らすので
 
         foreach ($products as $product) {
@@ -153,7 +150,6 @@ class CartController extends Controller
             ]);
         }
         dd("test");
-        // ##################################################################################################
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY')); //シークレットキー(envファイルに書いていたからenv('STRIPE_SECRET_KEY')このようになります)
         $checkout_session  = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
