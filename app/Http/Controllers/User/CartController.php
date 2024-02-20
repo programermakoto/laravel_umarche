@@ -136,7 +136,6 @@ class CartController extends Controller
         // もし買える状態でstripeに渡す前に在庫情報を減らすので
 
         foreach ($products as $product) {
-
             Stock::create([
 
                 'product_id' => $product->id, //その商品に対して選択
