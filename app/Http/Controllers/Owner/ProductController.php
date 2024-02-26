@@ -101,11 +101,8 @@ class ProductController extends Controller
 
         // リレーションで取得する際n+1問題が起こるのでwithで！
 
-        $categories = PrimaryCategory::with("secondary")
-
-            ->get();
-
-        return view("owner.products.create", compact("shops", "images", "categories"));
+        $categories = PrimaryCategory::with("secondary")->get();
+        return view("owner.products.create",compact("shops", "images", "categories"));
     }
 
     /**

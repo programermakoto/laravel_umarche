@@ -134,16 +134,11 @@ class CartController extends Controller
         } //$lineItemsの中に商品名と商品情報と商品価格と通貨と在庫情報を入れていく
 
         // もし買える状態でstripeに渡す前に在庫情報を減らすので
-
         foreach ($products as $product) {
             Stock::create([
-
                 'product_id' => $product->id, //その商品に対して選択
-
                 'type' => \Constant::PRODUCT_LIST['reduce'], //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
-
                 'quantity' => $product->pivot->quantity * -1. //カートの在庫数を減らす
-
             ]);
         }
         dd("test");
@@ -158,12 +153,8 @@ class CartController extends Controller
             'success_url' => route('user.items.index'), //支払い成功したらuser.items.indexに戻す
 
             'cancel_url' => route('user.cart.index'), //支払い失敗したらuser.cart.indexに戻す
-
         ]);
-
         $publicKey = env('STRIPE_PUBLIC_KEY'); //公開キー
-
         return view('user.checkout', compact('checkout_session', 'publicKey')); //checkout_sessionに情報が全て入って、publicKeyと渡す！
-
     }
 }
