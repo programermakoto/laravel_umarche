@@ -9,3 +9,7 @@
 storage/app/public/productsフォルダ内に保存すると表示されます。
 
 shopの画像を表示する場合はstorage/app/public/shopsフォルダを作成し画像を保存してください。
+
+## git pushできなくなれば..
+- [ ] git remote -vで確認
+- [ ] git remote set-url origin git@github.com:****/****.gitとsshを入れてあげる
