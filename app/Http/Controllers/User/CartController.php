@@ -71,15 +71,6 @@ class CartController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
     public function checkout()
     {
 
@@ -137,7 +128,7 @@ class CartController extends Controller
         foreach ($products as $product) {
             Stock::create([
                 'product_id' => $product->id, //その商品に対して選択
-                'type' => \Constant::PRODUCT_LIST['reduce'], //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
+                'type' => \Constangt::PRODUCT_LIST['reduce'], //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
                 'quantity' => $product->pivot->quantity * -1. //カートの在庫数を減らす
             ]);
         }
