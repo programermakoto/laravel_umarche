@@ -130,7 +130,7 @@ class CartController extends Controller
                 'product_id' => $product->id, //その商品に対して選択
                 'type' => \Constant::PRODUCT_LIST['reduce'],
                 //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
-                'quantity' => $product->pivot->quantity * -1. //カートの在庫数を減らす
+                'quantity' => $product->pivot->quantity * -1 //カートの在庫数を減らす
             ]);
         }
         dd("test");
@@ -138,7 +138,7 @@ class CartController extends Controller
         $checkout_session  = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
 
-            'line_items' => [[$lineItems]], //22行目の配列が入ってくる
+            'line_items' => [$lineItems], //22行目の配列が入ってくる
 
             'mode' => 'payment', //一回払い(モード)
 
