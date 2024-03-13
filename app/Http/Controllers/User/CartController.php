@@ -5,10 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Auth; //ユーザーidを取得するために
 use App\Models\User;
 
-use App\Models\Stock;
 
 class CartController extends Controller
 {
@@ -69,9 +69,8 @@ class CartController extends Controller
 
         return redirect()->route("user.cart.index");
     }
-
-
     public function checkout()
+
     {
 
         $user = User::findOrFail(Auth::id()); //1ログインしているユーザー情報を取る
@@ -82,71 +81,116 @@ class CartController extends Controller
 
         foreach ($products as $product) { //4foreachで全てのカートに入っている情報をとる
 
-            //在庫情報の処理
-            $quantity = '';
+             $quantity = '';//在庫情報の処理
 
-            $quantity = Stock::where('product_id', $product->id)->sum('quantity'); //商品の現在の在庫数を調べる
+             $quantity = Stock::where('product_id', $product->id)->sum('quantity'); //商品の現在の在庫数を調べる
 
             if ($product->pivot->quantity > $quantity) {
 
-                //カート内の数量より現在の在庫数が多かったら買えない処理に
+            // カート内の数量より現在の在庫数が多かったら買えない処理に
 
-                return redirect()->route('user.cart.index'); //user.cart.indexに戻す
+            return redirect()->route('user.cart.index'); //user.cart.indexに戻す
 
-            } else {
+             } else {
 
-                // 買える時の処理
+            // 買える時の処理
 
-                $price_data = ([
+            $price_data = ([
 
-                    'unit_amount' => $product->price, //商品価格
+                'unit_amount' => $product->price, //商品価格
 
-                    'currency' => 'jpy', //通貨
+                'currency' => 'jpy', //通貨
 
-                    'product_data' => $product_data = ([
+                'product_data' => $product_data = ([
 
-                        'name' => $product->name, //商品名
+                    'name' => $product->name, //商品名
 
-                        'description' => $product->information, //商品情報
+                    'description' => $product->information, //商品情報
 
-                    ]),
-                ]);
+                ]),
 
-                $lineItem = [
+            ]);
 
-                    'price_data' => $price_data, //$price_dataの事
+            $lineItem = [
 
-                    'quantity' => $product->pivot->quantity, //在庫情報
+                'price_data' => $price_data, //$price_dataの事
 
-                ];
+                'quantity' => $product->pivot->quantity, //在庫情報
 
-                array_push($lineItems, $lineItem);
-            }
+            ];
+
+            array_push($lineItems, $lineItem);
+
+             }
+
         } //$lineItemsの中に商品名と商品情報と商品価格と通貨と在庫情報を入れていく
 
-        // もし買える状態でstripeに渡す前に在庫情報を減らすので
+        // もし買える状態ならstripeに渡す前に在庫情報を減らすので
+
         foreach ($products as $product) {
-            Stock::create([
-                'product_id' => $product->id, //その商品に対して選択
-                'type' => \Constant::PRODUCT_LIST['reduce'],
-                //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
-                'quantity' => $product->pivot->quantity * -1 //カートの在庫数を減らす
-            ]);
-        }
-        dd("test");
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY')); //シークレットキー(envファイルに書いていたからenv('STRIPE_SECRET_KEY')このようになります)
-        $checkout_session  = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
 
-            'line_items' => [$lineItems], //22行目の配列が入ってくる
+         Stock::create([
 
-            'mode' => 'payment', //一回払い(モード)
+        'product_id' => $product->id, //その商品に対して選択
 
-            'success_url' => route('user.items.index'), //支払い成功したらuser.items.indexに戻す
+        'type' => \Constant::PRODUCT_LIST['reduce'],
 
-            'cancel_url' => route('user.cart.index'), //支払い失敗したらuser.cart.indexに戻す
-        ]);
-        $publicKey = env('STRIPE_PUBLIC_KEY'); //公開キー
-        return view('user.checkout', compact('checkout_session', 'publicKey')); //checkout_sessionに情報が全て入って、publicKeyと渡す！
+        //商品を減らす以前使った定数(app/Http/Controller/Owner/ProductController)
+
+        'quantity' => $product->pivot->quantity * -1 //カートの在庫数を減らす
+
+         ]);
+
+         }
+
+        // dd("test");
+
+         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY')); //シークレットキー(envファイルに書いていたからenv('STRIPE_SECRET_KEY')このようになります)
+
+         $checkout_session = \Stripe\Checkout\Session::create([
+
+        'payment_method_types' => ['card'],//支払い方法指定
+
+        'line_items' => [$lineItems], //配列が入ってくる
+
+        'mode' => 'payment', //一回払い(モード)
+
+        'success_url' => route('user.cart.success'), //支払い成功したらuser.items.indexに戻す
+
+        'cancel_url' => route('user.cart.cancel'), //支払い失敗したらuser.cart.indexに戻す
+
+         ]);
+
+         $publicKey = env('STRIPE_PUBLIC_KEY'); //公開キー
+
+        return view('user.checkout',
+
+         compact('checkout_session', 'publicKey')); //checkout_sessionに情報が全て入って、publicKeyと渡す！
     }
+    public function success(){
+
+        Cart::where('user_id',Auth::id())->delete();
+
+       return redirect()->route('user.items.index');
+    }
+    public function cancel(){
+
+        $user = User::findOrFail(Auth::id());
+
+       foreach($user->products as $product){
+
+        Stock::create([
+
+       'product_id' => $product->id,//その商品に対して選択
+
+       'type' => \Constant::PRODUCT_LIST['add'],//商品を増やす。以前使った定数(app/Http/Controller/Owner/ProductController)
+
+       'quantity' => $product->pivot->quantity //カートの在庫数を増やす
+
+        ]); }
+
+       return redirect()->route('user.cart.index');
+
+        }
+
 }
