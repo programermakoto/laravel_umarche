@@ -9,6 +9,8 @@ use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\ShopController;
+use App\Http\Controllers\Owner\ProductController;
+use App\Http\Controllers\Owner\ImageController; //ImageControllerの読み込みを次にする
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +22,9 @@ use App\Http\Controllers\Owner\ShopController;
 |
 */
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
+// Route::get('/', function () {
+//     return view('owner.welcome');
+// });
 
 Route::prefix("shops")->middleware("auth:owners")->group(function(){
 
@@ -30,20 +32,19 @@ Route::prefix("shops")->middleware("auth:owners")->group(function(){
 
  Route::get("edit/{shop}",[shopController::class,"edit"])->name("shops.edit");
 
- Route::post("updatshopp}",[shopController::class,"update"])->name("shops.update");
-
+ Route::post("update/{shop}}",[shopController::class,"update"])->name("shops.update");
 });
-
-
+Route::resource('images',ImageController::class)->middleware("auth:owners")->except(["show"]); //ownerからのみアクセス可能かつ
+Route::resource('products',ProductController::class)->middleware("auth:owners")->except(["show"]); //ownerからのみアクセス可能かつ
 Route::get('/dashboard', function () {
     return view('owner.dashboard');
 })->middleware(['auth:owners'])->name('dashboard');
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //             ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -63,7 +64,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware('auth:owner')->group(function () {
+Route::middleware('auth:owners')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -83,4 +84,5 @@ Route::middleware('auth:owner')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+
 

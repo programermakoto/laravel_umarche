@@ -13,6 +13,7 @@ use Throwable;
 use Illuminate\Support\Facades\Log;
 use App\Models\shop;
 
+
 class OwnersController extends Controller
 {
     /**
@@ -180,3 +181,8 @@ class OwnersController extends Controller
 
         }
 }
+
+
+
+
+

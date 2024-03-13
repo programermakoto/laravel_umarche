@@ -6,13 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\shop;
-<<<<<<< Updated upstream
-=======
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
-
-
->>>>>>> Stashed changes
+use App\Http\Requests\UploadImageRequest;
+use App\Services\ImageService;
 class ShopController extends Controller
 {
     public function __construct()
@@ -45,42 +42,73 @@ class ShopController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
-        $shops = shop::where("owner_id",Auth::id())->get();
-        return view("owner.shops.index",compact("shops"));
-
-        // phpinfo();
+        $shops = shop::where("owner_id", Auth::id())->get();
+        return view("owner.shops.index", compact("shops"));
     }
     public function edit($id)
     {
-<<<<<<< Updated upstream
-        dd(shop::findOrFail($id));
-=======
-        // dd(shop::findOrFail($id));
+       // dd(shop::findOrFail($id));
         $shop = shop::findOrFail($id);
         return view("owner.shops.edit", compact("shop"));
     }
-    public function update(Request $request)
+    public function update(UploadImageRequest $request,$id)
     {
-        $imageFile = $request->image; //imgを受け取り変数へ
-        //nullではないかアップロードできてるか確認
-        if (!is_null($imageFile) && $imageFile->isValid()) {
-            //保存先と保存したいファイル
-            //リサイズとは画像を手動で同じ大きさに整えている場合の処理
-            // Storage::putFile("public/shops",$imageFile);//リサイズなし
+        $request->validate([
 
-            $fileName = uniqid(rand(). "_"); //ランダムなファイルを作成
-            $extension = $imageFile->extension(); //extensionで受け取った画像の拡張子をつけて代入
-            $fileNameToStore = $fileName. "." .$extension;
-            $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode(); //resizeでサイズ設定
-            Storage::put("public/shops/" . $fileNameToStore, $resizedImage);//ファイルからのファイル名,リサイズした画像
+            'name' => ['required', 'string', 'max:50'],
+
+            'information' => ['required', 'string', 'max:1000'],
+
+            'is_selling' => ['required'],
+
+        ]);
+
+
+        $imageFile = $request->image; //imgを受け取り変数へ
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+            $fileNameToStore = ImageService::upload($imageFile, "shops");
+
+            // Storage::putFile("public/shops",$imageFile);
+            // $fileName = uniqid(rand() . "_"); //ランダムなファイルを作成
+
+            // $extension = $imageFile->extension(); //extensionで受け取った画像の拡張子をつけて代入
+
+            // $fileNameToStore = $fileName . "." . $extension;
+
+            // $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode(); //resizeでサイズ設定,encodeで画像として扱える
+
+            // Storage::put("public/shops/" . $fileNameToStore, $resizedImage); //ファイルからのファイル名,リサイズした画像
+        }
+        //nullではないかアップロードできてるか確認
+        //保存先と保存したいファイル
+        $shop = Shop::findOrFail($id);
+
+        $shop->name = $request->name;
+
+        $shop->information = $request->information;
+
+        $shop->is_selling = $request->is_selling;
+
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+
+            $shop->filename = $fileNameToStore;
         }
 
-        return redirect()->route("owner.shops.index");
->>>>>>> Stashed changes
+        $shop->save();
+        return redirect()
+
+        ->route("owner.shops.index")
+
+       ->with([
+
+       "message" => "店舗情報を追加しました",
+
+       "status" => "info"
+
+        ]);
     }
-    public function update(Request $request, $id)
-    {}
 }
 
