@@ -1,7 +1,40 @@
-## ECサイトを本格的に制作講座
+## ダウンロード方法
+
+git clone git clone 
+
+https://github.com/aokitashipro/laravel_umarche.git
+
+git clone ブランチを指定してダウンロードする場合 git clone -b ブランチ名 https://github.com/aokitashipro/laravel_umarche.git
+
+もしくはzipファイルでダウンロードしてください
 
 ## インストール方法
 
+cd laravel_umarche composer install npm install npm run dev
+
+.env.example をコピーして .env ファイルを作成
+
+.envファイルの中の下記をご利用の環境に合わせて変更してください。
+
+DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=laravel_umarche DB_USERNAME=umarche DB_PASSWORD=password123
+
+XAMPP/MAMPまたは他の開発環境でDBを起動した後に
+
+php artisan migrate:fresh --seed
+
+と実行してください。(データベーステーブルとダミーデータが追加されればOK)
+
+最後に Php artisan key:generate と入力してキーを生成後、
+
+Php artisan serve で簡易サーバーを立ち上げ、表示確認してください。
+
+画像のダミーデータを扱う場合は php artisan storage:link でリンク作成し
+
+public/images内の画像ファイルを storage/app/public内に shopsフォルダと productsフォルダを作成し それぞれに画像をコピーしてください。
+
+画像コピー後
+
+php artisan migrate:fresh --seed と実施してください。
 ## インストール後の実施事項
 
 画像のダミーデータはpublic/imagesフォルダ内にsample1.jpg 〜 sample6.jpgとして保存しています。 php artisan storage:linkでstorageフォルダにリンク後,
@@ -14,3 +47,4 @@ shopの画像を表示する場合はstorage/app/public/shopsフォルダを作�
 
 - [ ] git remote -vで確認
 - [ ] git remote set-url origin git@github.com:****/****.gitとsshを入れてあげる
+
