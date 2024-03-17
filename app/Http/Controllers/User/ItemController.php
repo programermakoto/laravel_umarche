@@ -23,7 +23,7 @@ class ItemController extends Controller
 
            if (!is_null($id)) { //itemのidが存在するなら↓
 
-            $itemId = Product::availableItems()->where('products.id',$id)->exists(); //productのidが入ってきた値idと一致してるか。入ってきた値が存在するかどうか確認。
+            $itemId = Product::availableItems()->where('product.id',$id)->exists(); //productのidが入ってきた値idと一致してるか。入ってきた値が存在するかどうか確認。
 
            //↓itemIdが存在していなかったら
 
