@@ -124,4 +124,43 @@ class Product extends Model
 
             );
     }
+    public function scopeSortOrder($query, $sortOrder)
+
+    {
+
+        // 特定のソート順が指定されていない場合や、推奨されるソート順が選択された場合のデフォルト動作の条件。
+
+        if ($sortOrder === null || $sortOrder === \Constant::SORT_ORDER['recommend']) {
+
+            return $query->orderBy('sort_order', 'asc');
+        }
+
+        // 高い価格から低い価格へ並び替えるための条件(desc)
+
+        if ($sortOrder === \Constant::SORT_ORDER['higherPrice']) {
+
+            return $query->orderBy('price', 'desc');
+        }
+
+        // 低い価格から高い価格へ並び替えるための条件(asc)
+
+        if ($sortOrder === \Constant::SORT_ORDER['lowerPrice']) {
+
+            return $query->orderBy('price', 'asc');
+        }
+
+        // 商品が追加された日付が新しい順に並び替えるための条件(desc)
+
+        if ($sortOrder === \Constant::SORT_ORDER['later']) {
+
+            return $query->orderBy('products.created_at', 'desc');
+        }
+
+        // 商品が追加された日付が古い順に並び替えるための条件(asc)
+
+        if ($sortOrder === \Constant::SORT_ORDER['older']) {
+
+            return $query->orderBy('products.created_at', 'asc');
+        }
+    }
 }
