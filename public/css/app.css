@@ -1060,7 +1060,9 @@ select {
 .-mt-px {
     margin-top: -1px;
 }
-
+.mb-0 {
+    margin-bottom: 0;
+}
 .mb-1 {
     margin-bottom: 0.25rem;
 }
@@ -2363,5 +2365,14 @@ select {
     .lg\:px-8 {
         padding-left: 2rem;
         padding-right: 2rem;
+    }
+    .lg\:flex {
+        display: flex;
+    }
+    .lg\:justify-around {
+        justify-content: space-around;
+    }
+    .lg\:mb-0 {
+        margin-bottom: 0;
     }
 }
