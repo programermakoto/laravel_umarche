@@ -49,7 +49,7 @@ class ItemController extends Controller
         // Mail::to('test@example.com') //受信者の指定
         // ->send(new TestMail()); //Mailableクラス
         // 非同期
-        SendThanksMail::dispatch();
+        // SendThanksMail::dispatch();
 
         $categories = PrimaryCategory::with("secondary")->get();
         $products = Product::availableItems()
