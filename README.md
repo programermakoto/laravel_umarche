@@ -48,3 +48,15 @@ shopの画像を表示する場合はstorage/app/public/shopsフォルダを作�
 - [ ] git remote -vで確認
 - [ ] git remote set-url origin git@github.com:****/****.gitとsshを入れてあげる
 
+## section7の補足
+
+決済のテストとしてstripeを使用しています！
+必要な時は.envにstripeの情報を追記してください。
+
+## section8の補足
+
+メールのテストとしてmailtrapを使用しています！
+必要な時は.envにmailtrapの情報を追記してください。
+
+メールの処理の時間がかかるのでキューを使用。
+必要な時はphp artisan queue:work動作確認してください。
